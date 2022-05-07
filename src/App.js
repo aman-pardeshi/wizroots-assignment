@@ -1,23 +1,96 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
+
+import Category from './components/category/Category';
+import OverlayCard from './components/overlayCard/OverlayCard';
+import { Routes, Route } from 'react-router-dom';
+import HomeScreen from './pages/homeScreen/HomeScreen';
+import Spinner from './components/spinner/Spinner';
+import SearchBar from './components/searchBar/SearchBar';
+
+const category = [{ title: 'TechCrunch', url: '' }];
 
 function App() {
+  const [newsArticle, setNewsArticle] = useState([]);
+  const [overlay, setOverlay] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState('TechCrunch');
+  const [currentUrl, setCurrentUrl] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchingArticles = async (url) => {
+      let data = await fetch(url);
+      setLoading(true);
+      let parsedData = await data.json();
+      setNewsArticle(parsedData.articles);
+
+      if (!currentCategory) {
+        setCurrentCategory(category[0].title);
+      }
+
+      setLoading(false);
+    };
+
+    let url = '';
+    if (!currentUrl) {
+      url = `https://newsapi.org/v2/everything?q=${currentCategory}&language=en&apiKey=${process.env.REACT_APP_API_KEY}`;
+    } else {
+      url = currentUrl;
+    }
+
+    fetchingArticles(url);
+  }, [currentCategory, currentUrl]);
+
+  const handleClick = (categoryObject) => {
+    setCurrentCategory(categoryObject.title);
+    setCurrentUrl(categoryObject.url);
+  };
+
+  console.log(newsArticle);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className='App'>
+      <h1 className='title'>News Today</h1>
+
+      <OverlayCard
+        category={category}
+        overlay={overlay}
+        setOverlay={setOverlay}
+        setCurrentCategory={setCurrentCategory}
+        setCurrentUrl={setCurrentUrl}
+      />
+
+      <div className='category-container'>
+        <div className='category-subcontainer'>
+          {category.map((element) => (
+            <Category
+              key={element.title}
+              category={element}
+              className='category'
+              currentCategory={currentCategory}
+              handleClick={handleClick}
+            />
+          ))}
+        </div>
+        <button
+          className='add-button'
+          onClick={() => setOverlay(!overlay)}
+          disabled={category.length === 5}
         >
-          Learn React
-        </a>
-      </header>
+          +
+        </button>
+      </div>
+
+      <SearchBar
+        currentCategory={currentCategory}
+        setCurrentCategory={setCurrentCategory}
+      />
+
+      {loading && <Spinner />}
+
+      <Routes>
+        <Route path='/' element={<HomeScreen articles={newsArticle} />} />
+      </Routes>
     </div>
   );
 }

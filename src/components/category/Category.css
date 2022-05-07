@@ -1,0 +1,11 @@
+.category-name {
+  display: flex;
+  background: #eaeaea 0% 0% no-repeat padding-box;
+  border-radius: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.selected {
+  background: #00f0c2 0% 0% no-repeat padding-box;
+}
