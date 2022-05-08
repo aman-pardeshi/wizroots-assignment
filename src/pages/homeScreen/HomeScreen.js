@@ -25,7 +25,7 @@ const HomeScreen = ({ articles }) => {
         ))
       ) : (
         <h1 style={{ textAlign: 'center' }}>
-          Oops! There seems to be some propblem
+          Oops! There seems to be some problem
         </h1>
       )}
     </>
