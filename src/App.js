@@ -8,7 +8,12 @@ import HomeScreen from './pages/homeScreen/HomeScreen';
 import Spinner from './components/spinner/Spinner';
 import SearchBar from './components/searchBar/SearchBar';
 
-const category = [{ title: 'TechCrunch', url: '' }];
+const category = [
+  {
+    title: 'TechCrunch',
+    url: `https://newsapi.org/v2/everything?sources=techcrunch&language=en&apiKey=${process.env.REACT_APP_API_KEY}`,
+  },
+];
 
 function App() {
   const [newsArticle, setNewsArticle] = useState([]);
@@ -23,19 +28,15 @@ function App() {
       setLoading(true);
       let parsedData = await data.json();
       setNewsArticle(parsedData.articles);
-
-      if (!currentCategory) {
-        setCurrentCategory(category[0].title);
-      }
-
       setLoading(false);
     };
 
     let url = '';
-    if (!currentUrl) {
-      url = `https://newsapi.org/v2/everything?q=${currentCategory}&language=en&apiKey=${process.env.REACT_APP_API_KEY}`;
+
+    if (currentCategory === 'TechCrunch') {
+      url = category[0].url;
     } else {
-      url = currentUrl;
+      url = `https://newsapi.org/v2/everything?q=${currentCategory}&language=en&apiKey=${process.env.REACT_APP_API_KEY}`;
     }
 
     fetchingArticles(url);
@@ -45,8 +46,6 @@ function App() {
     setCurrentCategory(categoryObject.title);
     setCurrentUrl(categoryObject.url);
   };
-
-  console.log(newsArticle);
 
   return (
     <div className='App'>

@@ -5,23 +5,29 @@ import './HomeScreen.css';
 const HomeScreen = ({ articles }) => {
   return (
     <>
-      {articles.map((x) => (
-        <a
-          href={x.url}
-          target='_blank'
-          rel='noreferrer'
-          className='link-tag'
-          key={x.url}
-        >
-          <Card
-            title={x.title}
-            urlToImage={x.urlToImage}
-            author={x.author}
-            publishedAt={x.publishedAt}
-            description={x.description}
-          />
-        </a>
-      ))}
+      {articles ? (
+        articles.map((element) => (
+          <a
+            href={element.url}
+            target='_blank'
+            rel='noreferrer'
+            className='link-tag'
+            key={element.url}
+          >
+            <Card
+              title={element.title}
+              urlToImage={element.urlToImage}
+              author={element.author}
+              publishedAt={element.publishedAt}
+              description={element.description}
+            />
+          </a>
+        ))
+      ) : (
+        <h1 style={{ textAlign: 'center' }}>
+          Oops! There seems to be some propblem
+        </h1>
+      )}
     </>
   );
 };
