@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/wizroots-assignment/static/css/main.2450492f.css",
+    "main.js": "/wizroots-assignment/static/js/main.0009994b.js",
+    "static/js/787.6a5cfe9f.chunk.js": "/wizroots-assignment/static/js/787.6a5cfe9f.chunk.js",
+    "index.html": "/wizroots-assignment/index.html",
+    "static/media/ionic-ios-search.svg": "/wizroots-assignment/static/media/ionic-ios-search.8a477c853af7d0133cd5.svg",
+    "main.2450492f.css.map": "/wizroots-assignment/static/css/main.2450492f.css.map",
+    "main.0009994b.js.map": "/wizroots-assignment/static/js/main.0009994b.js.map",
+    "787.6a5cfe9f.chunk.js.map": "/wizroots-assignment/static/js/787.6a5cfe9f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2450492f.css",
+    "static/js/main.0009994b.js"
+  ]
+}
